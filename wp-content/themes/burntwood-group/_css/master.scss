@@ -208,6 +208,11 @@ $mobile-top-bar-height : 45px;
 $desktop-top-bar-height : 35px;
 
 .sticky-top-bar {
+    &--covid {
+        text-align: center!important;
+        font-size: 12px;
+        padding: 5px;
+    }
     height: $mobile-top-bar-height;
     background: $burntwood-blue;
     color: $blanc;

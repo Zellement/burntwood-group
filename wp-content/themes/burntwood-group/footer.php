@@ -9,43 +9,7 @@
     </p>
 </div>
 
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFFlXigsvINX7SYaW37ZCrbUn9k7hfNgk&v=3.exp&libraries=geometry"></script>
-                
-                <script type="text/javascript">
-                    // When the window has finished loading create our google map below
-                    google.maps.event.addDomListener(window, 'load', init);
-                
-                    function init() {
-                        // Basic options for a simple Google Map
-                        // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
-                        var mapOptions = {
-                            // How zoomed in you want the map to start at (always required)
-                            zoom: 10,
-
-                            scrollwheel: false,
-
-                            draggable: false,
-
-                            // The latitude and longitude to center the map (always required)
-                            center: new google.maps.LatLng(52.681361, -1.946835)
-                        };
-
-                        // Get the HTML DOM element that will contain your map 
-                        // We are using a div with id="map" seen below in the <body>
-                        var mapElement = document.getElementById('map');
-
-                        // Create the Google Map using our element and options defined above
-                        var map = new google.maps.Map(mapElement, mapOptions);
-
-                        // Let's also add a marker while we're at it
-                        var marker = new google.maps.Marker({
-                            position: new google.maps.LatLng(52.681361, -1.946835),
-                            map: map
-                        });
-                    }
-                </script>
-
-                <div id="map"></div>
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2418.814724305377!2d-1.9489303839857126!3d52.68138343200861!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4870a07dde638153%3A0xd3cc00493d8d4848!2sBurntwood%20Group!5e0!3m2!1sen!2suk!4v1585141333565!5m2!1sen!2suk" width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
 
 <footer role="contentinfo">
 

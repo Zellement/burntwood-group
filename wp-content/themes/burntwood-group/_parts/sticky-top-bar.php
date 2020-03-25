@@ -1,6 +1,6 @@
-<div class="sticky-top-bar">
+<div class="sticky-top-bar sticky-top-bar--covid">
 
-	<div class="container flex800 desktop">
+<?php /*	<div class="container flex800 desktop">
 
 		<a class="email" href="mailto:<?php the_field('company_email_address', 'option'); ?>"><i class="fa fa-envelope"></i> <?php the_field('company_email_address', 'option'); ?></a>
 
@@ -14,6 +14,8 @@
 
 		<a class="menu-btn" href="#mmenu"><i class="fa fa-bars"></i> Menu</a>
 
-    </div>
+    </div> */ ?>
+
+	Covid-19 Update: Business as usual at Burntwood Group. We'll post any further updates on here.
 
 </div>
