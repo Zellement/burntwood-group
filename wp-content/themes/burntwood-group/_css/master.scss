@@ -1,0 +1,1124 @@
+/* Import reset */
+
+@import "partials/_reset.scss";
+
+/* SASS Variables
+--------------------------------------------------------------- */
+
+// Media Queries
+
+$tablet-width   : 480px;
+$desktop-width  : 800px;
+$medium-width   : 1000px;
+$large-width    : 1200px;
+$full-width     : 1600px;
+
+@mixin bp480 {
+  @media (min-width: #{$tablet-width}) {
+    @content;
+  }
+}
+
+@mixin bp800 {
+  @media (min-width: #{$desktop-width}) {
+    @content;
+  }
+}
+
+@mixin bp1000 {
+  @media (min-width: #{$medium-width}) {
+    @content;
+  }
+}
+
+@mixin bp1200 {
+  @media (min-width: #{$large-width}) {
+    @content;
+  }
+}
+
+@mixin bp1600 {
+  @media (min-width: #{$full-width}) {
+    @content;
+  }
+}
+
+@mixin text-underline-crop($background) {
+  text-shadow:  .03em 0 $background, 
+                -.03em 0 $background,
+                0 .03em $background,
+                0 -.03em $background,
+                .06em 0 $background,
+                -.06em 0 $background,
+                .09em 0 $background,
+                -.09em 0 $background,
+                .12em 0 $background,
+                -.12em 0 $background,
+                .15em 0 $background,
+                -.15em 0 $background;
+}
+
+@mixin text-underline($color-bg, $color-text) {
+  background-image: linear-gradient($color-text, $color-text);
+  background-size: 1px 1px;
+  background-repeat: repeat-x;
+  background-position: 0% 76%;
+}
+
+@mixin link-underline($background, $text){
+  @include text-underline-crop($background);
+  @include text-underline($background, $text);
+
+  color: $text;
+  text-decoration: none;
+
+  *,
+  *:after,
+  &:after,
+  *:before,
+  &:before {
+    text-shadow: none;
+  }
+
+  &:visited {
+    color: $text;
+  }
+}
+
+// Colours
+
+$noir     : #444;
+$blanc    : #fff;
+
+$light-grey : #eee;
+
+$burntwood-blue : darken(#0042ff,5);
+$burntwood-yellow : #ffc50a;
+
+// Typography
+
+$primaryFont   : 'Hind';
+$secondaryFont : 'Montserrat';
+
+/* Global
+--------------------------------------------------------------- */
+
+* { margin: 0; padding: 0; }
+
+*, *:before, *:after {
+  -webkit-box-sizing: border-box; 
+  -moz-box-sizing: border-box; 
+  box-sizing: border-box;
+}
+
+body, html { min-height: 101%; }
+
+body {
+    background: $blanc;
+    color: $noir;
+    font: 18px/1.5 $primaryFont, sans-serif;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    transition: all ease 0.3s;
+}
+
+@import "partials/_mixins-functions.scss";
+
+/* Typography
+--------------------------------------------------------------- */
+
+h1, h2, h3, h4, h5 {
+    margin: 0;
+    font-family: $secondaryFont, sans-serif;
+    font-weight: normal;
+    line-height: 1.2em;
+    span {
+        display: block;
+    }
+}
+
+h1 { font-size: 2em;}
+h2 { font-size: 1.8em; }
+h3 { font-size: 1.6em; }
+h4 { font-size: 1.2em; }
+h5 { font-size: 1.1em; }
+
+h4.title {
+    border-left: 2px solid $burntwood-blue;
+    padding-left: 10px;
+}
+
+/* Global Containers
+--------------------------------------------------------------- */
+
+.container {
+    max-width: $full-width;
+    margin: 0 auto;
+}
+
+/* Buttons
+--------------------------------------------------------------- */
+
+.btn {
+    color: $noir;
+    background: $blanc;
+    padding: 0.5em 0.8em;
+    display: inline-block;
+    text-decoration: none;      
+    transition: 0.3s;
+
+    // Define the button names & colours
+    $btnColors :        noir $noir $blanc,
+                        burntwood-yellow $burntwood-yellow darken($burntwood-yellow,30),
+                        blanc $blanc $noir;
+
+    // Loop through colours above and create classes
+    @each $colorOption in $btnColors {
+        &.btn-#{nth($colorOption, 1)} {
+            background: nth($colorOption,2);
+            color: nth($colorOption,3);
+        }
+    }
+    
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+/* General
+--------------------------------------------------------------- */
+
+.box-padding {
+    padding: 1em;
+}
+
+@include bp800 {
+    .flexbox800 {
+        @include flexbox();
+    }
+}
+
+/* Site Header
+--------------------------------------------------------------- */
+
+$mobile-top-bar-height : 45px;
+$desktop-top-bar-height : 35px;
+
+.sticky-top-bar {
+    height: $mobile-top-bar-height;
+    background: $burntwood-blue;
+    color: $blanc;
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    .mobile {
+        text-align: center;
+        @include flexbox();
+        a {
+            width: 50%;
+        }
+    }
+    .desktop {
+        display: none;
+    }
+    a {
+        color: $blanc;
+        display: inline-block;
+        text-decoration: none;
+        padding: 10px;
+        &:hover {
+            color: darken($burntwood-yellow,1);
+        }
+    }
+    .email {
+        display: none;
+    }
+    .phone {
+        float: left;
+        background: $burntwood-blue;
+    }
+    .menu-btn {
+        float: right;
+        width: 50%;
+        background: $burntwood-yellow;
+        text-decoration: none;
+    }
+    &:after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+    @include bp800 {
+        text-align: right;
+        height: $desktop-top-bar-height;
+        font-size: 1rem;
+        .mobile {
+            display: none;
+        }
+        .desktop {
+            display: block;
+            @include flexbox();
+            @include justify-content(flex-end);
+        }
+        a {
+            padding: 5px 5px;
+        }
+        .email {
+            display: block;
+            float: right;
+            width: auto;
+            margin-right: 20px;
+        }
+        .phone {
+            width: auto;
+            float: right;
+        }
+        .menu-btn {
+            display: none;
+        }
+    }
+}
+
+/* Site Header
+--------------------------------------------------------------- */
+
+header[role="banner"] {
+    background: $blanc;
+
+    &:before {
+        /* Pseudo element to push content down */
+        content: '';
+        height: $mobile-top-bar-height;
+        display: block;
+    }
+
+    img.logo {
+        display: block;
+        width: 100%;
+        max-width: 250px;
+        transition: all ease 0.3s;
+        margin: 0 auto;
+        padding: 1em 0.5em;
+
+        &:hover {
+            opacity: 0.8;
+        }
+
+        @include bp800 {
+            float: left;
+        }
+    }
+
+    .phone-top-right {
+        display: none;
+
+        @include bp800 {
+            float: right;
+            display: block;
+        }
+    }
+
+    &:after {
+        /* Pseudo element to push content down */
+        content: '';
+        clear: both;
+        display: block;
+        
+    }
+        
+    @include bp800 {
+        &:before {
+            height: $desktop-top-bar-height;
+        }
+    }
+
+}
+
+/* Site Navigation
+--------------------------------------------------------------- */
+
+@import "partials/_mmenu.scss";
+
+// Removes FOUC on desktop
+#mmenu:not( .mm-menu ) {
+   display: none;
+}
+
+@media only screen and (max-width: $desktop-width) {
+    ul.menu:not(#menu-main-nav-1) li.current-menu-item,
+    ul.menu:not(#menu-main-nav-1) li.current-menu-parent,
+    ul.sub-menu li.current-menu-item {
+        background: $noir;
+        color: $blanc;
+    }
+}
+
+/* Desktop Navigation */
+
+nav[role="navigation"] {
+    display: none;
+    background: $blanc;
+    padding-top: 4px;
+
+    @include bp800 {
+        text-align: right;
+        display: block;
+
+        li {
+            display: inline;
+            position: relative;
+
+            &.menu-item-has-children > a:after {
+                content: "\f107";
+                position: absolute;
+                bottom: -15px;
+                left: 50%;
+                margin-left: -8px;
+                font: 1em/1 FontAwesome;
+                color: $light-grey;
+            }
+        }
+
+        .current-menu-item a,
+        .current-menu-parent a {
+            border-color: $burntwood-blue;
+
+            &:hover {
+                border-color: $burntwood-yellow;
+            }
+
+        }
+
+        a {
+            display: inline-block;
+            text-decoration: none;
+            color: $noir;
+            padding: 22px 4px;
+            border-bottom: 3px solid $light-grey;
+            font-size: .9em;
+
+            &:hover {
+                border-color: $burntwood-yellow;
+            }
+
+        }
+
+        .sub-menu {
+            position: absolute;
+            background: $blanc;
+            text-align: left;
+            top: 61px;
+            left: 0;
+            z-index: 100;
+            opacity: 0;
+            font-size: 0.9rem;
+            visibility: hidden;
+            width: 180px;
+            padding-right: 4px;
+
+            li {
+                width: 100%;
+                float: left;
+            }
+
+            .current-menu-item a {
+                color: $blanc;
+                background: $noir;
+            }
+
+            a {
+                color: $noir;
+                padding: 10px;
+                display: block;
+                border-bottom: 1px solid rgba(255,255,255,.1);
+
+                &:hover {
+                    background: lighten($light-grey,4);
+                    border-color: $burntwood-yellow;
+                }
+
+            }
+
+            &:hover {
+                display: block;
+                opacity: 1;
+                visibility: visible;
+            }
+
+        }
+
+        a:hover + .sub-menu {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+        }
+
+    }
+
+    @include bp1000 {
+
+        a {
+            font-size: 1em;
+            padding: 30px 13px;
+        }
+
+    }
+
+    @include bp1200 {
+
+        .sub-menu {
+            width: 250px;
+        }
+
+        a {
+            padding: 30px 22px;
+        }
+
+    }
+
+    @include bp1600 {
+
+        a {
+            padding: 30px 35px;
+        }
+
+    }
+
+}
+
+/* Hero
+--------------------------------------------------------------- */
+
+.hero {
+
+    .hero-image {
+        text-align: center;
+        background-size: cover;
+        background-position: center center;
+        min-height: 250px;
+    }
+
+    .hero-content {
+        background-color: $burntwood-blue;
+        //background-image: url(../_static/images/hero-content-bg.jpg);
+        font-family: $secondaryFont;
+        @include order(-1);
+        padding: 2em;
+        color: $blanc;
+        text-align: center;
+        @include flexbox();
+        @include flex-direction(column);
+    }
+
+    .margin-auto {
+        margin: auto;
+    }
+
+    li {
+        list-style: none;
+        font-size: 0.9rem;
+    }
+
+    p {
+        line-height: 1.2em;
+    }
+
+    p.primary {
+        font-size: 1.8em;
+    }
+
+    p.secondary {
+        font-size: 1.2em;
+        margin-bottom: 20px;
+        color: lighten($burntwood-yellow,10);
+    }
+    @include bp480 {
+
+        .hero-content {
+            padding: 3em;
+        }
+
+    }
+
+    @include bp800 {
+
+        @include flexbox();
+
+        .hero-content {
+            padding: 1em;
+        }
+
+        p.primary {
+            font-size: 1.9em;
+        }
+
+        p.secondary {
+            font-size: 1.3em;
+        }
+    }
+
+    @include bp1200 {
+
+        @include flexbox();
+
+        p.primary {
+            font-size: 2.2em;
+        }
+
+        p.secondary {
+            font-size: 1.5em;
+        }
+
+        .hero-image {
+            min-height: 450px;
+        }
+
+        li {
+            font-size: 1em;
+        }
+
+    }
+
+    @include bp1600 {
+
+        @include flexbox();
+
+        p.primary {
+            font-size: 2.8em;
+        }
+
+        p.secondary {
+            font-size: 1.7em;
+        }
+
+    }
+}
+
+/* Buckets
+--------------------------------------------------------------- */
+
+.buckets {
+
+    .container {
+        padding: 0;
+        @include flexbox;
+        @include flex-wrap(wrap);
+    }
+
+    li {
+        display: block;
+        float: left;
+        background-size: cover;
+        background-position: center;
+        @include flexbox;
+        @include flex-wrap(wrap);
+    }
+
+    a {
+        display: block;
+        text-decoration: none;
+        color: #fff;
+        padding: 10em 0 0 0;
+        width: 100%;
+
+        &:hover .title {
+            background: rgba($burntwood-yellow,.8);
+        }
+    }
+
+    .title {
+        display: block;
+        padding: .5em;
+        transition: .3s;
+        background: rgba($burntwood-blue,0.8);
+    }
+
+    .desc {
+        padding: 0 10px;
+    }
+
+    .btn {
+        display: block;
+        margin: 0 10px 10px;
+    }
+
+    &:after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+}
+
+.buckets.imagehtml {
+
+    a {
+        padding: 0;
+        background: $noir;
+
+        &:hover img {
+            opacity: .8;
+        }
+    }
+
+    a > * {
+        margin-bottom: 10px;
+    }
+
+    img {
+        display: block;
+        transition: .3s;
+    }
+
+}
+
+/* Article
+--------------------------------------------------------------- */
+
+article {
+
+    h1 {
+        color: $burntwood-blue;
+        span {
+            color: $noir;
+            font-size: 0.7em;
+        }
+    }
+
+    h1 + p {
+        font-size: 1.1em;
+    }
+
+    p {
+        margin: 1em 0;
+    }
+
+    ul {
+        list-style: none;
+        margin: 1em 0;
+    }
+
+    > ul li {
+        &:before {
+            display: inline-block;
+            padding-right: .5em;
+            font-family: FontAwesome;
+            content: '\f0da';
+        }    
+    }
+
+    ol {
+        margin-left: 1em;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+        width: 100%;
+        height: auto;
+
+        @include bp480 {
+            &.left {
+                float: left;
+                margin: .5em .5em .5em 0;
+            }
+
+            &.center {
+                clear: both;
+                margin: 0 auto;
+            }
+
+            &.right {
+                float: right;
+                margin: .5em 0 .5em .5em;
+            }
+        }
+    }
+
+    a {
+        @include link-underline($blanc, $burntwood-blue);
+        &:hover {
+            @include link-underline($blanc, $burntwood-yellow);
+        }
+    }
+}
+
+/* Aside
+--------------------------------------------------------------- */
+
+aside {
+    padding: 1em 0;
+
+    &.news-aside {
+        ul {
+            list-style: none;
+        }
+        li {
+            margin: 0.3em 0;
+            a {
+                text-decoration: none;
+                &:hover {
+                }
+            }
+        }
+    }
+
+}
+
+/* General
+--------------------------------------------------------------- */
+
+
+.related-services {
+    h4 {
+        margin: 0 0 1em 0;
+    }
+    ul {
+        width: 100%;
+    }
+    li {
+        list-style: none;
+        position: relative;
+        background-size: cover;
+        background-position: center center;
+        margin: 1px 0;
+        &.current-child-item {
+            opacity: 0.4;
+        }
+    }
+    a {
+        display: block;
+        overflow: hidden;
+        color: $noir;
+        width: 100%;
+        position: relative;
+        padding: 10em 0 0 0;
+        font-size: 0.9rem;
+        span {
+            background: $blanc;
+            display: inline-block;
+            padding: 10px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            max-width: 90%;
+            transition: 0.3s;
+        }
+        &:hover {
+            span {
+                background: $burntwood-yellow;
+            }
+        }
+    }
+    img {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        max-width: 350px;
+    }
+    @include bp480 {
+        @include flexbox();
+        @include flex-wrap(wrap);
+        li {
+            width: 50%;
+            float: left;
+            display: block;
+        }
+    }
+    @include bp800 {
+        li {
+            width: 100%;
+            float: none;
+        }
+    }
+    @include bp1200 {
+        li {
+            width: 50%;
+            float: left;
+        }
+    }
+}
+
+.accreditations {
+    ul {
+        list-style: none;
+        @include flexbox();
+        @include flex-wrap(wrap);
+        &:after {
+            clear: both;
+            display: block;
+            content: '';
+        }
+    }
+    li {
+        float: left;
+        width: 50%;
+        padding: 1em;
+    }
+    img {
+        max-width: 100px;
+        width: 100%;
+        height: auto;
+        display: block;
+        margin: auto;
+    }
+
+    @include bp800 {
+        padding-top: 3em;
+        li {
+            width: 100%;
+        }
+    }
+
+}
+
+.gallery {
+    margin-bottom: 1em;
+    ul {
+        list-style: none;
+        @include flexbox();
+    }
+    img {
+        width: 100%;
+        transition: 0.3s;
+        &:hover {
+            -webkit-filter: contrast(1.5);
+            filter: contrast(1.5);
+        }
+    }
+    h4 {
+        margin: 0 0 1em 0;
+    }
+}
+
+.team {
+    ul {
+        list-style: none;
+        @include flexbox();
+        @include flex-wrap(wrap);
+    }
+    img {
+        border-radius: 50%;
+        transition: 0.3s;
+        &:hover {
+            border-radius: 35%;
+        }
+    }
+    li {
+        width: 100%;
+        text-align: center;
+        padding: 0 0 1em 0;
+    }
+    h4 {
+        margin: 0 0 1em 0;
+    }
+    p {
+        font-size: 0.9rem;
+    }
+    p.job-title {
+        color: $burntwood-blue;
+        font-size: 0.8rem;
+    }
+    @include bp480 {
+        li {
+            width: 50%;
+        }
+    }
+    @include bp1200 {
+        li {
+            width: 33%;
+        }
+    }
+}
+
+/* Prev / Next
+--------------------------------------------------------------- */
+
+.prev-next {
+    a {
+        display: block;
+        background: $noir;
+        text-decoration: none;
+        color: $blanc;
+        padding: 1em;
+        &:hover {
+        }
+    }
+    .next-posts a {
+        background: lighten($noir,10);
+        text-align: right;
+        &:hover {
+        }
+    }
+}
+
+/* Credit Cards
+--------------------------------------------------------------- */
+
+.credit-cards {
+    ul {
+        list-style: none;
+        li {
+            display: inline-block;
+        }
+    }
+    img {
+        width: 100%;
+        max-width: 50px;
+    }
+}
+
+/* Search form
+--------------------------------------------------------------- */
+
+form.search-form {
+    input.search-field, button.search-submit {
+        display: inline-block;
+        border: none;
+        padding: 10px;
+        line-height: 1.3em;
+    }
+    input.search-field, button.search-submit {
+        font-family: "FontAwesome", sans-serif;
+        border: 1px solid #ccc;
+    }
+    button.search-submit {
+        background: $noir;
+        color: $blanc;
+        border: none;
+        border: 1px solid $noir;
+    }
+}
+
+#map {
+    width: 100%;
+    clear: both;
+    
+    min-height: 400px;
+}
+
+/* Site Footer
+--------------------------------------------------------------- */
+
+footer[role="contentinfo"] {    
+    clear: both;
+    overflow: hidden;
+    color: $noir;
+    font-size: 0.9rem;
+    background: $light-grey;
+
+    p {
+        line-height: 1.5em;
+        margin: 0.5em 0;
+    }
+
+    p.title {
+        font-size: 1.1rem;
+        font-weight: 700;
+            color: $burntwood-blue;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    li {
+        display: inline-block;
+        ul {
+            display: none;
+        }
+    }
+
+    ul.footer-navigation {
+
+        &:after {
+            content: '';
+            clear: both;
+            display: block;
+        }
+
+        li {
+            margin: 5px 0;
+            display: block;
+           a {
+                border-left: 2px solid $burntwood-blue;
+                padding-left: 10px;
+            }
+       }
+    }  
+
+    img {
+        max-width: 100%;
+    }
+
+    a {
+        color: $burntwood-blue;
+        text-decoration: none;
+        &:hover {
+            color: darken($burntwood-blue,30);
+        }
+    }
+
+    @include bp800 {
+        text-align: left;
+        ul.footer-navigation li {
+            width: 50%;
+            display: inline-block;
+            float: left;
+        }
+    }
+
+    a.adtrak img {
+        max-width: 100px;
+    }
+
+}
+
+/* Back to top
+--------------------------------------------------------------- */
+
+#back-top {
+    border-radius: 10px;
+    position:fixed;
+    cursor: pointer;
+    right: 10px;
+    bottom:10px;
+    z-index: 300;
+    opacity: 0.4;
+    text-align: center;
+    background: #fff;
+    padding: 0.3em;
+
+    &:hover {
+        opacity: 1;
+        transition: 0.3s all ease;
+    }
+
+    a {
+        color: #333;
+        text-shadow: 1px 1px 1px #fff;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 2px;
+        
+        i {
+            display: block;
+            font-size: 3rem;
+        }
+    }
+}
+
+// Forms
+@import "partials/_forms.scss";
+// Cookies
+@import "partials/_cookies.scss";
+// Swipebox
+@import "partials/_swipebox.scss";
+// Animate
+@import "partials/_animate.scss";

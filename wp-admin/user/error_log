@@ -1,0 +1,2 @@
+[24-Nov-2017 20:30:53 UTC] PHP Fatal error:  Call to undefined function __() in /home/burntwoo/public_html/wp-admin/user/menu.php on line 10
+[24-Nov-2017 20:35:17 UTC] PHP Fatal error:  Call to undefined function __() in /home/burntwoo/public_html/wp-admin/user/menu.php on line 10
