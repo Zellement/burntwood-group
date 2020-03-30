@@ -16,6 +16,6 @@
 
     </div> */ ?>
 
-	Covid-19 Update: Business as usual at Burntwood Group. We'll post any further updates on here.
+	Covid-19 Update 30.03.2020: We are currently still operating, but at reduced capacity.
 
 </div>
